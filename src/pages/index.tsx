@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
 import { GetServerSideProps } from 'next'
-// import { env } from 'process'
 
 import { createDb, createObjects } from '../services/util'
 import { Iprops } from '../model/Interface'
@@ -19,13 +18,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 }
 
-// const p = console.log
-
 const Home: NextPage<Iprops> = ({ data }: Iprops) => {
   const [Loading, setLoading] = useState(true)
   const GpusRaw = createObjects(data)
   const [Gpus, setGpus] = useState(GpusRaw)
-  // const [sortGpu, setSortGpu] = useState({ type: 'Preço', isDown: true })
 
   useEffect(() => {
     if (Gpus.length > 0) {
@@ -46,12 +42,7 @@ const Home: NextPage<Iprops> = ({ data }: Iprops) => {
       <div className={'main flex flex-col w-[99.1%] h-full font-fancy font-normal text-text bg-bgMain z-0'}>
         <Header />
         <div className="flex flex-row w-[100%]">
-          <Sidebar
-            GpusRaw={GpusRaw}
-            Gpus={Gpus}
-            setGpus={setGpus}
-            // sortGpu={sortGpu}
-          />
+          <Sidebar GpusRaw={GpusRaw} Gpus={Gpus} setGpus={setGpus} />
           <GpusTable Gpus={Gpus} />
         </div>
       </div>
@@ -60,14 +51,3 @@ const Home: NextPage<Iprops> = ({ data }: Iprops) => {
 }
 
 export default Home
-
-/*
-<Sidebar
-            GpusRaw={GpusRaw}
-            Gpus={Gpus}
-            setGpus={setGpus}
-            // sortGpu={sortGpu}
-          />
-          <GpusTable Gpus={Gpus} />
-
-*/

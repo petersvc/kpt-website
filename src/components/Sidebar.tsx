@@ -68,36 +68,58 @@ const Sidebar: React.FC<IsidebarProps> = ({ GpusRaw, Gpus, setGpus }: IsidebarPr
         // console.log('inside filterprice: ', filters['price'])
     }
 
+    function typeChange(type: string): string {
+      let tempType: string
+
+        switch (type) {          
+          case 'Series':
+            tempType = 'serie'
+            break
+          case 'Modelos':
+            tempType = 'model'
+            break
+          case 'Marcas':
+            tempType = 'brand'
+            break
+          default:
+            tempType = 'price'
+            break  
+            
+        }
+      return tempType 
+    }
+
     function allFilters(e: { target: HTMLInputElement }): void {
+        const targetId = typeChange(e.target.id)
         const GpusByBrand: IsidebarProps['Gpus'] = []
         const GpusBySerie: IsidebarProps['Gpus'] = []
         const GpusByModel: IsidebarProps['Gpus'] = []
         const GpusByStore: IsidebarProps['Gpus'] = []
         let allGpus: IsidebarProps['Gpus'] = []
 
-        if (e.target.id === 'brand' || filters.brand) {
-            // console.log('allfilters brands')
+        if (targetId === 'brand' || filters.brand) {
+            console.log('allfilters brands')
             filterBrands(e, GpusByBrand)
         }
 
-        if (e.target.id === 'serie' || filters.serie) {
-            // console.log('allfilters series')
+        if (targetId === 'serie' || filters.serie) {
+            console.log('allfilters series')
             filterSeries(e, GpusBySerie)
         }
 
-        if (e.target.id === 'model' || filters.model) {
-            // console.log('allfilters models')
+        if (targetId === 'model' || filters.model) {
+            console.log('allfilters models')
             filterModels(e, GpusByModel)
         }
 
-        if (e.target.id === 'store' || filters.store) {
-            // console.log('allfilters stores')
+        if (targetId === 'store' || filters.store) {
+            console.log('allfilters stores')
             filterStores(e, GpusByStore)
         }
 
         if (e.target.querySelector('[name="sliderPrice"]') != null) {
             console.log('tipo do slider:', typeof e.target.querySelector)
-            // console.log('allfilters prices')
+            console.log('allfilters prices')
             return filterPrice()
         }
 
@@ -371,7 +393,7 @@ const Sidebar: React.FC<IsidebarProps> = ({ GpusRaw, Gpus, setGpus }: IsidebarPr
                             </div>
                         </div>
 
-                        <div className={'series flex flex-col w-[100%] mt-5 pb-5 border-b border-borders overflow-y'}>
+                        <div className={'series flex flex-col w-[100%] pb-5 overflow-y'}>
            
                             {Components.map((component) => (
                                 <div key={component.name} className={'series flex flex-col w-[100%] mt-5 pb-5 border-b border-borders overflow-y'}>
@@ -383,7 +405,7 @@ const Sidebar: React.FC<IsidebarProps> = ({ GpusRaw, Gpus, setGpus }: IsidebarPr
                                             <input
                                             type="checkbox"
                                             name={element}
-                                            id={element}
+                                            id={component.name}
                                             onChange={allFilters}
                                             className={
                                                 'flex h-5 w-5 font-normal mr-3 appearance-none checked:bg-[rgb(132,168,236)] rounded-sm border border-[rgba(255,255,255,0.2)]'

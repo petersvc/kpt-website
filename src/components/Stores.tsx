@@ -20,7 +20,7 @@ const Stores: FC<IStoresProps> = ({ Gpus }: IStoresProps) => {
       {stores.map((value) => (
         <div key={value} className={'flex flex-row justify-between items-center py-0 px-0 rounded-xl bg-bgContentt'}>
           <div className={'flex flex-row justify-between items-center rounded-sm bg-bgContentt border border-borders'}>
-            <button className={'flex justify-center items-center p-1 text-[rgb(100,100,100)] border-2 border-bgContent'}>
+            <button className={'flex justify-center items-center h-8 w-10 border-2 border-bgContent'}>
               <h2 className={'text-smm'}>{storeNumbers(value)}</h2>
               <BiSortDown className={'hidden'} size={16} />
             </button>
@@ -40,8 +40,14 @@ const Stores: FC<IStoresProps> = ({ Gpus }: IStoresProps) => {
         </div>
       </div>
 
-      <div className={'flex flex-row justify-between items-center py-3 px-5 rounded-full bg-bgContentt border border-borders'}>
-        <h1 className={'text-sm'}>Encontrados: {Gpus.length}</h1>
+      <div className={'flex flex-row justify-between items-center py-1 rounded-sm bg-bgContentt'}>
+        <h1 className={'text-sm'}>Encontrados:</h1>
+        <div className={'ml-2 flex flex-row justify-between items-center rounded-sm bg-bgContent py-1.5 px-1.5'}>
+          <div className={'flex flex-row justify-between items-center py-1 px-1 rounded-sm bg-bgIndermediate2'}>
+            <h1 className={'text-xs'}>{Gpus.length}</h1>
+          </div>
+          <h1 className={'ml-3 text-xs'}>GPUs</h1>
+        </div>
       </div>
     </div>
   )

@@ -137,7 +137,7 @@ module.exports = {
         bgMain: 'rgb(33,34,40)',
         bgIndermediate: 'rgb(38,39,45)',
         bgIndermediate2: 'rgb(36,37,42)',
-        bgContent: 'rgb(44,46,56)',
+        bgContent: 'rgb(44,46,53)',
         bgContentc: 'rgb(30,32,37)',
         borders: 'rgba(45,45,45,1)',
         bordersHead: 'rgba(58,58,58,1)',
