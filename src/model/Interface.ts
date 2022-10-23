@@ -1,10 +1,18 @@
-import { SetStateAction } from 'react'
-import Gpu from './Gpu'
+// import { SetStateAction } from 'react'
+
+// let a: a
+
+// interface a: {
+//   nome: string,
+//   idade: number,
+//   limbs: Array<string>
+// }
 
 export interface IProduct {
+  readonly _id: string
   readonly name: string
   readonly price: string
-  readonly priceInt: number
+  readonly priceint: number
   readonly model: string
   readonly serie: string
   readonly manufactor: string
@@ -15,21 +23,28 @@ export interface IProduct {
 
 export interface IGpu extends IProduct {
   readonly brand: string
+  propertyName: keyof IGpu
 }
 
-export interface Iprops {
-  data: Gpu[]
-  Gpus: Gpu[]
-  GpusRaw: Gpu[]
-  Gpu: Gpu
-  setGpus: React.Dispatch<SetStateAction<Gpu[]>>
+export interface IfetchResponse {
+  rawData: IGpu[]
+  isFetching: boolean
+  // setData: React.Dispatch<SetStateAction<IGpu[]>>
+}
+
+export interface Ihome {
+  err: unknown
+  data: IGpu[]
+  gpus: IGpu[]
+  gpusRaw: IGpu[]
+  gpu: IGpu
+  // setGpus: React.Dispatch<SetStateAction<IGpu[]>>
 }
 
 export interface IsidebarProps {
-  Gpus: Gpu[]
-  GpusRaw: Gpu[]
-  setGpus: React.Dispatch<SetStateAction<Gpu[]>>
-  // sortGpu: { type: string; isDown: boolean }
+  gpus: IGpu[]
+  // gpusRaw: IGpu[]
+  gpusFiltersData: Array<{ name: string; items: string[] }>
 }
 
 export interface IProperties {
@@ -44,19 +59,32 @@ export interface ISidebarComponentsProps {
   models: string[]
   brands: string[]
   stores: string[]
-  GpusRaw: Gpu[]
+  gpusRaw: IGpu[]
   allFilters: (e: { target: HTMLInputElement }) => void
-  // numbers: (ar0: string) => number
 }
 
 export interface IGpuDiv {
-  Gpu: Gpu
+  gpu: IGpu
 }
 
 export interface IGpusTableProps {
-  Gpus: Gpu[]
+  gpus: IGpu[]
+  dataSize: string[]
 }
 
 export interface IStoresProps {
-  Gpus: Gpu[]
+  gpus: IGpu[]
+}
+
+export interface Ifilters {
+  price: boolean
+  store: boolean
+  brand: boolean
+  serie: boolean
+  model: boolean
+  manufactor: boolean
+}
+
+export interface IFilterExpression {
+  SetStateAction: Ifilters
 }

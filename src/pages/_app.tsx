@@ -1,7 +1,8 @@
-import '../styles/globals.css'
+import React from 'react'
 import type { AppProps } from 'next/app'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import React from 'react'
+
+import '../styles/globals.css'
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 

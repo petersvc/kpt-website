@@ -1,53 +1,65 @@
-import { IGpu, IProperties } from '../model/Interface'
-
-export function findMaxAndMinPrice(Gpus: IGpu[]): { max: number; min: number } {
-  const max = findMaxPrice(Gpus)
-  const min = findMinPrice(Gpus)
-  return { max, min }
-}
-
-export function findMinPrice(Gpus: IGpu[]): number {
-  return Gpus.reduce((acc, val) => (val.priceInt < acc ? val.priceInt : acc), Number.MAX_VALUE)
-}
-
-export function findMaxPrice(Gpus: IGpu[]): number {
-  return Gpus.reduce((acc, val) => (val.priceInt > acc ? val.priceInt : acc), Number.MIN_VALUE)
-}
-
-export function numbers(value: string, GpusRaw: IGpu[], brands: string[], models: string[], series: string[], stores: string[]): number {
-  let temp: IGpu[] = []
-
-  if (series.includes(value)) {
-    temp = GpusRaw.filter((Gpu) => Gpu.serie === value)
-  } else if (models.includes(value)) {
-    temp = GpusRaw.filter((Gpu) => Gpu.model === value)
-  } else if (stores.includes(value)) {
-    temp = GpusRaw.filter((Gpu) => Gpu.store === value)
+export function getPageParameter(pagePath: string): string {
+  const a = pagePath.indexOf('page')
+  const b = pagePath.slice(a, pagePath.length)
+  const c = b.indexOf('&')
+  if (c === -1) {
+    return pagePath.slice(a, pagePath.length)
   } else {
-    temp = GpusRaw.filter((Gpu) => Gpu.brand === value)
+    return pagePath.slice(a, c)
   }
-
-  return temp.length
 }
 
-export function getProperties(GpusRaw: IGpu[]): IProperties {
-  const tempStores = GpusRaw.map((Gpu) => Gpu.store)
-  const stores = GpusRaw.map((Gpu) => Gpu.store).filter((store, i) => tempStores.indexOf(store) === i)
-
-  const tempBrands = GpusRaw.map((Gpu) => Gpu.brand)
-  const brands = GpusRaw.map((Gpu) => Gpu.brand).filter((brand, i) => tempBrands.indexOf(brand) === i)
-
-  const tempSeries = GpusRaw.map((Gpu) => Gpu.serie)
-  const series = GpusRaw.map((Gpu) => Gpu.serie).filter((serie, i) => tempSeries.indexOf(serie) === i)
-
-  const tempModels = GpusRaw.map((Gpu) => Gpu.model)
-  const models = GpusRaw.map((Gpu) => Gpu.model).filter((model, i) => tempModels.indexOf(model) === i)
-
-  const properties = {
-    stores: { names: stores, numbers: stores.length },
-    brands: { names: brands, numbers: brands.length },
-    series: { names: series, numbers: series.length },
-    models: { names: models, numbers: models.length }
+export function getPageNumber(pagePath: string): number {
+  const c = getPageParameter(pagePath)
+  let lengthOfC = c.length
+  if (lengthOfC > 6) {
+    lengthOfC = lengthOfC - 2
+  } else {
+    lengthOfC = lengthOfC - 1
   }
-  return properties
+
+  const d = c.slice(lengthOfC, c.length)
+  return parseInt(d)
+}
+
+export function translateId(id: string): string {
+  let correctId = ''
+  switch (id) {
+    case 'Marcas':
+      correctId = 'brand'
+      break
+    case 'Modelos':
+      correctId = 'model'
+      break
+  }
+  return correctId
+}
+
+export function getParameterSlice(pagePath: string, parameter: string): string {
+  const startIndex = pagePath.indexOf(parameter)
+  if (startIndex === -1) {
+    return ''
+  }
+  let parameterSlice = pagePath.slice(startIndex)
+  // console.log('parameterSlice', parameterSlice)
+  let endIndex = parameterSlice.indexOf('&')
+  if (endIndex === -1) {
+    endIndex = pagePath.length
+  }
+  // console.log('endIndex', endIndex)
+  parameterSlice = parameterSlice.slice(0, endIndex)
+  return parameterSlice
+}
+
+export function getElementSlice(parameterSlice: string, id: string, element: string): string {
+  const noId = parameterSlice.replace(id + '=', '')
+  const noIdSplit = noId.split(',')
+  if (noIdSplit.length === 1) {
+    return ''
+  }
+  const elementIndex = noIdSplit.indexOf(element)
+  noIdSplit.splice(elementIndex, 1)
+  const noIdJoin = noIdSplit.join(',')
+  const newPath = id + '=' + noIdJoin
+  return newPath
 }

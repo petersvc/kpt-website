@@ -128,20 +128,18 @@ module.exports = {
         xsss: '.5rem'
       },
       fontFamily: {
-        fancy: ['Titillium Web']
+        fancy: 'Titillium Web'
       },
       colors: {
         primary: 'rgb(132,168,236)',
         secondary: 'rgb(234,71,73)',
-        bgMainc: 'rgb(28,29,32)',
-        bgMain: 'rgb(33,34,40)',
-        bgIndermediate: 'rgb(38,39,45)',
-        bgIndermediate2: 'rgb(36,37,42)',
-        bgContent: 'rgb(44,46,53)',
-        bgContentc: 'rgb(30,32,37)',
-        borders: 'rgba(45,45,45,1)',
+        black: 'rgb(32, 37, 47)',
+        dark: 'rgb(36, 41, 51)',
+        softDark: 'rgb(42, 48, 60)',
+        borders: 'rgb(50, 56,70)',
         bordersHead: 'rgba(58,58,58,1)',
-        text: 'rgb(200,200,200)',
+        text: 'rgb(166, 173, 186)',
+        softWhite: 'rgb(90, 95, 110)',
         icon: 'rgb(100,100,100)'
       }
     }
